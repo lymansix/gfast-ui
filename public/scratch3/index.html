@@ -261,7 +261,8 @@
       assets: {
         //素材库地址
         // assetHost: getSysConfig('qiniuDomain'), //使用七牛云的素材库,如果需要使用系统的自定义素材库，必须使用七牛云存储
-        assetHost: './static',
+        // assetHost: './static',
+        assetHost: 'http://spg4kh5i1.hb-bkt.clouddn.com',
         //素材库索引地址
         defaultIndex: {
           sprites: "./static/json_index/sprites.json",
@@ -447,7 +448,8 @@
   </div>
 
 </body>
-<script type="text/javascript" src="lib.min.js"></script>
+<!-- <script type="text/javascript" src="lib.min.js"></script> -->
+<script type="text/javascript" src="http://spg4kh5i1.hb-bkt.clouddn.com/lib.min.js"></script>
 <script type="text/javascript" src="chunks/gui.js"></script>
 <script>
   $('.fault-code').on('click', function () {
