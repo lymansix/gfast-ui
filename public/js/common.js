@@ -49,7 +49,7 @@ window.getSysConfig = function (key) {
   } else {
     let config = null
     $.ajax({
-      url: '/api/sys/config/getCurrentConfig',
+      url: '/api/system/config/sysConfig/listTeach',
       async: false,
       success: function (res) {
         if (res.code == 0) {
@@ -83,7 +83,7 @@ window.getWorkInfo = function (workId, cb) {
         cb(res.result)
       }
     },
-    error: function (e) {},
+    error: function (e) { },
   })
 }
 
@@ -159,8 +159,8 @@ function uploadFile(fileName, fileTag, filePath, fileLocation) {
         id = res.result.id
       }
     },
-    error: function () {},
-    complete: function () {},
+    error: function () { },
+    complete: function () { },
   })
   return id
 }

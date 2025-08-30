@@ -4,29 +4,6 @@
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" v-if="!topNav"/>
     <top-nav id="topmenu-container" class="topmenu-container" v-if="topNav"/>
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
-        <el-tooltip content="清除缓存" effect="dark" placement="bottom">
-          <clear-cache class="right-menu-item hover-effect" />
-        </el-tooltip>
-
-        <search id="header-search" class="right-menu-item" />
-
-        <el-tooltip content="源码地址" effect="dark" placement="bottom">
-          <ruo-yi-git id="ruoyi-git" class="right-menu-item hover-effect" />
-        </el-tooltip>
-
-        <el-tooltip content="文档地址" effect="dark" placement="bottom">
-          <ruo-yi-doc id="ruoyi-doc" class="right-menu-item hover-effect" />
-        </el-tooltip>
-
-        <screenfull id="screenfull" class="right-menu-item hover-effect" />
-
-        <el-tooltip content="布局大小" effect="dark" placement="bottom">
-          <size-select id="size-select" class="right-menu-item hover-effect" />
-        </el-tooltip>
-
-      </template>
-
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar" class="user-avatar">
@@ -49,16 +26,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-import Screenfull from '@/components/Screenfull'
-import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
-import RuoYiGit from '@/components/RuoYi/Git'
 import clearCache from '@/components/RuoYi/clearCache'
 import RuoYiDoc from '@/components/RuoYi/Doc'
+import RuoYiGit from '@/components/RuoYi/Git'
+import Screenfull from '@/components/Screenfull'
+import SizeSelect from '@/components/SizeSelect'
 import TopNav from '@/components/TopNav'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
