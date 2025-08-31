@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'gfast管理系统' // 标题
+const name = defaultSettings.title || '天智管理系统' // 标题
 
 const port = process.env.port || process.env.npm_config_port || 80 // 端口
 
@@ -41,7 +41,7 @@ module.exports = {
       }
     },
     disableHostCheck: true,
-    sockHost:"http://localhost:8200/",
+    sockHost: "http://localhost:8200/",
   },
   configureWebpack: {
     name: name,
@@ -96,7 +96,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()

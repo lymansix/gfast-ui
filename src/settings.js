@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'gfast管理系统',
+  title: '天智管理系统',
 
   /**
    * 是否系统布局配置
@@ -24,7 +24,7 @@ module.exports = {
   /**
    * 是否显示logo
    */
-  sidebarLogo: true,
+  sidebarLogo: false,
 
   /**
    * @type {string | array} 'production' | ['production', 'development']
