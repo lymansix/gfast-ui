@@ -25,11 +25,17 @@
 </template>
 
 <script>
-
+import {
+  listTeachWork
+} from "@/api/teach/work";
 export default {
-  name: 'mine',
+  name: 'TeachWorkMine',
   data() {
     return {
+      queryParams: {
+        pageNum: 1,
+        pageSize: 30
+      },
       works: [
         {
           title: 'Scratch3.0',
@@ -69,7 +75,19 @@ export default {
       ]
     }
   },
+  created() {
+    this.getList();
+  },
   methods: {
+    /** 查询作品列表 */
+    getList() {
+      this.loading = true;
+      listTeachWork(this.queryParams).then(response => {
+        this.works = response.data.list;
+        this.total = response.data.total;
+        this.loading = false;
+      });
+    },
     openWork(item) {
       // 这里可跳转到作品详情页
       this.$message.success(`打开 ${item.title}`)
