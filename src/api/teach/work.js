@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-// 查询作品列表
+// 查询编程作品列表
 export function listTeachWork(query) {
   return request({
     url: '/teach/teachWork/list',
@@ -7,7 +7,7 @@ export function listTeachWork(query) {
     params: query
   })
 }
-// 查询作品详细
+// 查询编程作品详细
 export function getTeachWork(id) {
   return request({
     url: '/teach/teachWork/get',
@@ -17,7 +17,7 @@ export function getTeachWork(id) {
     }
   })
 }
-// 新增作品
+// 新增编程作品
 export function addTeachWork(data) {
   return request({
     url: '/teach/teachWork/add',
@@ -25,7 +25,7 @@ export function addTeachWork(data) {
     data: data
   })
 }
-// 修改作品
+// 修改编程作品
 export function updateTeachWork(data) {
   return request({
     url: '/teach/teachWork/edit',
@@ -33,7 +33,7 @@ export function updateTeachWork(data) {
     data: data
   })
 }
-// 删除作品
+// 删除编程作品
 export function delTeachWork(ids) {
   return request({
     url: '/teach/teachWork/delete',
@@ -43,7 +43,7 @@ export function delTeachWork(ids) {
     }
   })
 }
-// 作品作业状态修改
+// 编程作品作品状态修改
 export function changeTeachWorkWorkStatus(id,workStatus) {
   const data = {
     id,

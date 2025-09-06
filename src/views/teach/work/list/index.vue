@@ -96,7 +96,7 @@ import {
   getTeachWork,
   listTeachWork,
   updateTeachWork,
-} from "@/api/teach/teachWork";
+} from "@/api/teach/work";
 export default {
   components: {},
   name: "TeachWorkList",
