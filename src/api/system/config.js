@@ -1,5 +1,14 @@
 import request from '@/utils/request'
 
+// 查询teach参数列表
+export function listTeach(query) {
+  return request({
+    url: '/system/config/sysConfig/listTeach',
+    method: 'get',
+    params: query
+  })
+}
+
 // 查询参数列表
 export function listConfig(query) {
   return request({
@@ -48,7 +57,7 @@ export function delConfig(configId) {
   return request({
     url: '/system/config/sysConfig/delete',
     method: 'delete',
-    data:{ids:configId}
+    data: { ids: configId }
   })
 }
 
