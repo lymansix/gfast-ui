@@ -1,27 +1,36 @@
-import Vue from 'vue'
+import Vue from 'vue';
 
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 
-import 'normalize.css/normalize.css' // a modern alternative to CSS resets
+import 'normalize.css/normalize.css'; // a modern alternative to CSS resets
 
-import Element from 'element-ui'
-import './assets/styles/element-variables.scss'
+import Element from 'element-ui';
+import './assets/styles/element-variables.scss';
 
-import '@/assets/styles/index.scss' // global css
-import '@/assets/styles/ruoyi.scss' // ruoyi css
-import App from './App'
-import store from './store'
-import router from './router'
-import permission from './directive/permission'
+import '@/assets/styles/index.scss'; // global css
+import '@/assets/styles/ruoyi.scss'; // ruoyi css
+import App from './App';
+import permission from './directive/permission';
+import router from './router';
+import store from './store';
 
-import './assets/icons' // icon
-import './permission' // permission control
-import { getDicts } from "@/api/system/dict/data";
-import { getItems, setItems } from '@/api/items'
+import { getItems, setItems } from '@/api/items';
 import { getConfigKey } from "@/api/system/config";
-import { parseTime, resetForm, addDateRange, selectDictLabel, download,
-  handleTree,getUpFileUrl,handleTreeRmEmpty,selectItemsLabel } from "@/utils/ruoyi";
+import { getDicts } from "@/api/system/dict/data";
 import Pagination from "@/components/Pagination";
+import {
+  addDateRange,
+  download,
+  getUpFileUrl,
+  handleTree,
+  handleTreeRmEmpty,
+  parseTime, resetForm,
+  selectDictLabel,
+  selectItemsLabel
+} from "@/utils/ruoyi";
+import Storage from 'vue-ls';
+import './assets/icons'; // icon
+import './permission'; // permission control
 
 
 // 全局方法挂载
@@ -57,18 +66,27 @@ Vue.component('Pagination', Pagination)
 
 Vue.use(permission)
 
+// vue-ls options
+const storageOptions = {
+  namespace: 'pro__', // key prefix
+  name: 'ls', // name variable Vue.[ls] or this.[$ls],
+  storage: 'local', // storage name session, local, memory
+}
+
+Vue.use(Storage, storageOptions)
+
 
 // 全局弹窗
-import Popup from "./components/popup/index"
+import Popup from "./components/popup/index";
 Vue.prototype.$dialog = Popup.install
 
 // 修正url链接中的地址
-Vue.filter("urlCorrection",function(url) {
+Vue.filter("urlCorrection", function (url) {
   if (/^http|^blob/.test(url)) {
     return url
   } else {
-    let reg = new RegExp('^/*'+Vue.prototype.apiUrl + "/*");
-    return Vue.prototype.apiUrl + "/" + url.replace(reg,'')
+    let reg = new RegExp('^/*' + Vue.prototype.apiUrl + "/*");
+    return Vue.prototype.apiUrl + "/" + url.replace(reg, '')
   }
 })
 

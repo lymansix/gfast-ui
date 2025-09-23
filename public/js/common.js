@@ -20,7 +20,7 @@ window.uuid = function () {
 }
 
 window.getUserInfo = function () {
-  userInfo = localStorage.getItem('pro__Login_Userinfo')
+  userInfo = localStorage.getItem('pro__User_Info')
   if (!userInfo) {
     return {}
   }
@@ -29,7 +29,7 @@ window.getUserInfo = function () {
 }
 
 window.getUserRole = function () {
-  userRole = localStorage.getItem('pro__Login_UserRole')
+  userRole = localStorage.getItem('pro__User_Role')
   if (!userRole) {
     return {}
   }
@@ -38,7 +38,7 @@ window.getUserRole = function () {
 }
 
 window.getUserToken = function () {
-  if (!localStorage.getItem('pro__Access-Token')) return null
+  if (!localStorage.getItem('pro__Access_Token')) return null
   var token = JSON.parse(localStorage.getItem('pro__Access-Token'))
   return token == null ? null : token.value
 }

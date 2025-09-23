@@ -1,6 +1,6 @@
-import { login, logout, getInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
-import {getUpFileUrl} from "@/utils/ruoyi";
+import { getInfo, login, logout } from '@/api/login';
+import { getToken, removeToken, setToken } from '@/utils/auth';
+import { getUpFileUrl } from "@/utils/ruoyi";
 
 const user = {
   state: {
@@ -40,6 +40,9 @@ const user = {
         login(username, password, code, uuid).then(res => {
           setToken(res.data.token)
           commit('SET_TOKEN', res.data.token)
+          const expire = 7 * 24 * 60 * 60 * 1000
+          Vue.ls.set('Access_Token', res.data.token, expire)
+          Vue.ls.set('User_Info', userInfo, expire)
           resolve()
         }).catch(error => {
           reject(error)
@@ -52,10 +55,11 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo(state.token).then(res => {
           const user = res.data.user
-          const avatar = user.avatar == "" ? require("@/assets/image/profile.jpg") : getUpFileUrl(process.env.VUE_APP_BASE_API , user.avatar);
+          const avatar = user.avatar == "" ? require("@/assets/image/profile.jpg") : getUpFileUrl(process.env.VUE_APP_BASE_API, user.avatar);
 
           if (res.data.roles && res.data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', res.data.roles)
+            // Vue.ls.set(USER_ROLE, userRole, expire)
             commit('SET_PERMISSIONS', res.data.permissions)
           } else {
             commit('SET_ROLES', ['ROLE_DEFAULT'])

@@ -26,12 +26,13 @@
     var additionalId = urlParams('additionalId') //附加作业ID
     var scene = urlParams("scene") || 'create' //来源
     var userInfo = getUserInfo();
-    var qn_token = getQiniuToken();
+    var qn_token = '';
+    // var qn_token = getQiniuToken();
     var userToken = getUserToken();
     var workStatus = 0
-    setInterval(function () {
+    /* setInterval(function () {
       qn_token = getQiniuToken();
-    }, 600 * 1000)
+    }, 600 * 1000) */
 
 
     var observer = {
@@ -72,11 +73,11 @@
         //avatar: getQiniuUrl(userInfo.avatar) || './static/avatar.png',
       },
       backpack: {
-        enable: true,
+        enable: false,
         api: "/api/teaching/scratch/backpack",
       },
       cloudData: {
-        enable: true,
+        enable: false,
         id: "create", //云变量ID，提交作业后使用window.scratch.setCloudId换成作品ID
         api: window.location.hostname + "/api/websocket/scratch/cloudData" //云变量API地址
       },
@@ -202,14 +203,14 @@
               background: 'rgb(90 132 225)',
             },
             handleClick: () => {
-              window.location.href = '/account/center'
+              window.location.href = '/work/workmine'
             }
           },
           //可继续新增按钮
         ],
       },
       blocks: {
-        scale: 0.8, // 积木缩放比例
+        scale: 0.6, // 积木缩放比例
         // 隐藏分类
         hideCatagorys: [],
         hideBlocks: [],
