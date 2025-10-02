@@ -1,6 +1,7 @@
 import { getInfo, login, logout } from '@/api/login';
 import { getToken, removeToken, setToken } from '@/utils/auth';
 import { getUpFileUrl } from "@/utils/ruoyi";
+import Vue from 'vue';
 
 const user = {
   state: {
@@ -81,6 +82,7 @@ const user = {
           commit('SET_ROLES', [])
           commit('SET_PERMISSIONS', [])
           removeToken()
+          Vue.ls.clear()
           resolve()
         }).catch(error => {
           reject(error)
