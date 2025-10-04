@@ -39,7 +39,7 @@ window.getUserRole = function () {
 
 window.getUserToken = function () {
   if (!localStorage.getItem('pro__Access_Token')) return null
-  var token = JSON.parse(localStorage.getItem('pro__Access-Token'))
+  var token = JSON.parse(localStorage.getItem('pro__Access_Token'))
   return token == null ? null : token.value
 }
 
@@ -53,7 +53,7 @@ window.getSysConfig = function (key) {
       async: false,
       success: function (res) {
         if (res.code == 0) {
-          config = res.result
+          config = res.data
           let configCache = {
             expire: new Date().getTime() + 3600000,
             value: config,
@@ -110,15 +110,15 @@ window.getScratchAssets = function (assetType, cb) {
 window.getQiniuToken = function (onSuccess, onError) {
   var qn_token
   $.ajax({
-    url: '/api/common/qiniu/getToken?t=' + new Date().getTime(),
+    url: '/api/system/upload/getQiniuToken',
     beforeSend: function (request) {
-      request.setRequestHeader('X-Access-Token', getUserToken())
+      request.setRequestHeader('authorization', 'Bearer ' + getUserToken())
     },
     async: false,
     success: function (res) {
-      console.log(res)
-      if (res.code == 200) {
-        qn_token = res.result
+      // console.log('qiniu token', res)
+      if (res.code == 0) {
+        qn_token = res.data
         if (onSuccess) {
           onSuccess(res)
         }
@@ -132,6 +132,7 @@ window.getQiniuToken = function (onSuccess, onError) {
       }
     },
   })
+  // console.log('qiniu token', qn_token)
   return qn_token
 }
 
