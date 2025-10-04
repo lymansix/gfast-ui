@@ -40,7 +40,7 @@
         console.log(1, err)
       },
       complete(res) {
-        console.log(res)
+        // console.log('upload complete', res)
         if (res.key.endsWith('.jpg')) {
           uploadParam.coverKey = uploadFile(res.key, '学生作业-封面', res.key, 2)
         } else {
@@ -328,6 +328,7 @@
 
     //上传作业
     function uploadWork() {
+      // console.log("上传作业", uploadParam)
       if (!uploadParam.projectKey || !uploadParam.coverKey) {
         return
       }
@@ -357,7 +358,7 @@
           if (res.code == 0) {
             //如果包含云变量
             if (window.vm.runtime.hasCloudData()) {
-              workId = res.result.id
+              workId = res.data
               //更新cloudId
               window.scratch.setCloudId(workId)
             }
@@ -368,7 +369,7 @@
               window.location.hostname +
               (window.location.port ? ':' + window.location.port : '') +
               '/work-detail?id=' +
-              res.result.id
+              res.data
             createCode('qrcode', shareUrl)
             var img = document.createElement('img');
             img.id = 'qrCodeIco';

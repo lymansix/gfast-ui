@@ -150,14 +150,14 @@ function uploadFile(fileName, fileTag, filePath, fileLocation) {
     },
     data: JSON.stringify({
       fileType: 2,
-      fileName: fileName,
+      // fileName: fileName,
       filePath: filePath,
       fileLocation: fileLocation,
       fileTag: fileTag,
     }),
     success: function (res) {
-      if (res.success) {
-        id = res.result.id
+      if (res.code == 0) {
+        id = res.data
       }
     },
     error: function () { },
