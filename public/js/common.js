@@ -93,7 +93,7 @@ window.getScratchAssets = function (assetType, cb) {
   $.ajax({
     url: '/api/teaching/teachingScratchAssets/getScratchAssets?assetType=' + assetType,
     beforeSend: function (request) {
-      request.setRequestHeader('X-Access-Token', getUserToken())
+      request.setRequestHeader('authorization', 'Bearer ' + getUserToken())
     },
     async: cb != undefined,
     success: function (res) {
@@ -146,7 +146,7 @@ function uploadFile(fileName, fileTag, filePath, fileLocation) {
     contentType: 'application/json',
     async: false,
     beforeSend: function (request) {
-      request.setRequestHeader('X-Access-Token', getUserToken())
+      request.setRequestHeader('authorization', 'Bearer ' + getUserToken())
     },
     data: JSON.stringify({
       fileType: 2,
@@ -173,7 +173,7 @@ function getUnitInfo(unitId, cb) {
       unitId: unitId,
     },
     beforeSend: function (request) {
-      request.setRequestHeader('X-Access-Token', getUserToken())
+      request.setRequestHeader('authorization', 'Bearer ' + getUserToken())
     },
     success: function (res) {
       console.log(res)
@@ -202,7 +202,7 @@ function upload2Qiniu(file, key, fileName, observer) {
     mimeType: null,
   }
   var observable = qiniu.upload(file, key, qn_token, putExtra, config)
-  var subscription = observable.subscribe(observer)
+  observable.subscribe(observer)
 }
 
 function update2Local(file, filename, bizPath, cb) {
@@ -220,7 +220,7 @@ function update2Local(file, filename, bizPath, cb) {
     processData: false,
     contentType: false,
     beforeSend: function (request) {
-      request.setRequestHeader('X-Access-Token', getUserToken())
+      request.setRequestHeader('authorization', 'Bearer ' + getUserToken())
     },
     success: function (result) {
       if (cb) {

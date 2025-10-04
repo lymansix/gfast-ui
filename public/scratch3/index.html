@@ -304,7 +304,6 @@
     // console.log(getSysConfig('qiniuDomain'))
     //请求提交作业
     function requestUpload(status) {
-      qn_token = getQiniuToken();
       workStatus = status
       $('.scratch-filter').show()
       $('.uploading').show()
@@ -333,12 +332,12 @@
         return
       }
       $.ajax({
-        url: '/api/teaching/teachingWork/submit',
+        url: '/api/teach/teachWork/add',
         type: 'POST',
         dataType: 'json',
         contentType: 'application/json',
         beforeSend: function (request) {
-          request.setRequestHeader('X-Access-Token', userToken)
+          request.setRequestHeader('authorization', 'Bearer ' + getUserToken())
         },
         data: JSON.stringify({
           courseId: unitId,
@@ -355,7 +354,7 @@
         }),
         success: function (res) {
           canShare = true
-          if (res.code == 200) {
+          if (res.code == 0) {
             //如果包含云变量
             if (window.vm.runtime.hasCloudData()) {
               workId = res.result.id
