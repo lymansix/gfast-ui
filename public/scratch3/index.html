@@ -231,7 +231,7 @@
           })
         } else if (workId) {
           getWorkInfo(workId, function (info) {
-            window.scratch.loadProject(info.workFileKey_url, () => {
+            window.scratch.loadProject(info.workFileUrl, () => {
               $('.loading').hide()
               $('.scratch-filter').hide()
               window.scratch.setProjectName(info.workName)

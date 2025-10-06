@@ -76,11 +76,11 @@ window.getLogo = function () {
 
 window.getWorkInfo = function (workId, cb) {
   $.ajax({
-    url: '/api/teaching/teachingWork/studentWorkInfo',
-    data: { workId: workId },
+    url: '/api/teach/teachWork/get',
+    data: { id: workId },
     success: function (res) {
       if (res.code == 0) {
-        cb(res.result)
+        cb(res.data)
       }
     },
     error: function (e) { },
