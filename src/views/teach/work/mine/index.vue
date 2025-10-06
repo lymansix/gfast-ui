@@ -5,11 +5,11 @@
       <el-col :span="10" v-for="(item, index) in works" :key="index" :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
         <el-card :body-style="{ padding: '0px' }" class="work-card" shadow="hover">
           <!-- 封面图 -->
-          <img :src="item.cover" class="cover" @click="handleEdit(item)" />
+          <img :src="item.workCoverUrl" class="cover" @click="handleEdit(item)" />
 
           <!-- 文字区 -->
           <div class="card-body">
-            <h3 class="title">{{ item.title }}</h3>
+            <h3 class="title">{{ item.workName }}</h3>
             <el-tag v-for="tag in item.tags" :key="tag" size="mini" type="success" class="tag">{{ tag }}</el-tag>
           </div>
           <!-- 底部 3 个按钮 -->
@@ -36,43 +36,7 @@ export default {
         pageNum: 1,
         pageSize: 30
       },
-      works: [
-        {
-          title: 'Scratch3.0',
-          cover: 'https://picsum.photos/300/200?random=1',
-          tags: ['Scratch']
-        },
-        {
-          title: '15-神笔马良',
-          cover: 'https://picsum.photos/300/200?random=2',
-          tags: ['Scratch', '动画']
-        },
-        {
-          title: '老鹰抓小鸡11',
-          cover: 'https://picsum.photos/300/200?random=3',
-          tags: ['游戏']
-        },
-        {
-          title: '15-猜猜-哪头大象重',
-          cover: 'https://picsum.photos/300/200?random=4',
-          tags: ['Scratch']
-        },
-        {
-          title: '山地足球',
-          cover: 'https://picsum.photos/300/200?random=5',
-          tags: ['游戏']
-        },
-        {
-          title: '14-多边形绘图',
-          cover: 'https://picsum.photos/300/200?random=6',
-          tags: ['Scratch', '绘图']
-        },
-        {
-          title: '初级-16-听音识路',
-          cover: 'https://picsum.photos/300/200?random=7',
-          tags: ['Scratch', '音乐']
-        }
-      ]
+      works: []
     }
   },
   created() {
@@ -90,16 +54,29 @@ export default {
     },
     openWork(item) {
       // 这里可跳转到作品详情页
-      this.$message.success(`打开 ${item.title}`)
+      this.$message.success(`打开 ${item.workName}`)
     },
     handleDelete(item) {
-      this.$message.info(`查看 ${item.title}`)
+      this.$message.info(`查看 ${item.workName}`)
     },
     handleEdit(item) {
-      this.$message.info(`编辑 ${item.title}`)
+      switch (item.workType) {
+        case '1':
+          return window.open('/scratch3/index.html?workId=' + item.id)
+        case '2':
+          return window.open('/scratch3/index.html?workId=' + item.id)
+        case '3':
+          return window.open('/scratchjr/editor.html?mode=edit&workFile=' + item.workFileUrl)
+        case '4':
+          return window.open('/python/index.html?workId=' + item.id)
+        case '10':
+          return window.open('/blockly/index.html?lang=zh-hans&workId=' + item.id)
+        default:
+          return window.open(record.workFileUrl)
+      }
     },
     handleShare(item) {
-      this.$message.success(`已复制 ${item.title} 分享链接`)
+      this.$message.success(`已复制 ${item.workName} 分享链接`)
     }
   }
 }

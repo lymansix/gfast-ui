@@ -146,15 +146,6 @@ export default {
         workStatus: [
           { required: true, message: "作品状态不能为空", trigger: "blur" }
         ],
-        starNum: [
-          { required: true, message: "点赞次数不能为空", trigger: "blur" }
-        ],
-        collectNum: [
-          { required: true, message: "收藏次数不能为空", trigger: "blur" }
-        ],
-        viewNum: [
-          { required: true, message: "查看次数不能为空", trigger: "blur" }
-        ],
       }
     };
   },

@@ -77,6 +77,9 @@ window.getLogo = function () {
 window.getWorkInfo = function (workId, cb) {
   $.ajax({
     url: '/api/teach/teachWork/get',
+    beforeSend: function (request) {
+      request.setRequestHeader('authorization', 'Bearer ' + getUserToken())
+    },
     data: { id: workId },
     success: function (res) {
       if (res.code == 0) {
