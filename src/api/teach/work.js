@@ -7,13 +7,21 @@ export function listTeachWork(query) {
     params: query
   })
 }
+// 查询自己的作品
+export function listTeachWorkMine(query) {
+  return request({
+    url: '/teach/teachWork/listMine',
+    method: 'get',
+    params: query
+  })
+}
 // 查询编程作品详细
 export function getTeachWork(id) {
   return request({
     url: '/teach/teachWork/get',
     method: 'get',
     params: {
-     id: id.toString()
+      id: id.toString()
     }
   })
 }
@@ -38,13 +46,13 @@ export function delTeachWork(ids) {
   return request({
     url: '/teach/teachWork/delete',
     method: 'delete',
-    data:{
-       ids:ids
+    data: {
+      ids: ids
     }
   })
 }
 // 编程作品作品状态修改
-export function changeTeachWorkWorkStatus(id,workStatus) {
+export function changeTeachWorkWorkStatus(id, workStatus) {
   const data = {
     id,
     workStatus
@@ -52,14 +60,14 @@ export function changeTeachWorkWorkStatus(id,workStatus) {
   return request({
     url: '/teach/teachWork/changeWorkStatus',
     method: 'put',
-    data:data
+    data: data
   })
 }
 //获取用户信息列表
-export function getUserList(uIds){
-    return request({
-     url: '/system/auth/usersGet',
-     method: 'get',
-     params: {ids:uIds}
-   })
+export function getUserList(uIds) {
+  return request({
+    url: '/system/auth/usersGet',
+    method: 'get',
+    params: { ids: uIds }
+  })
 }

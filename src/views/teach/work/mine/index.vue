@@ -26,7 +26,7 @@
 
 <script>
 import {
-  listTeachWork
+  listTeachWorkMine
 } from "@/api/teach/work";
 export default {
   name: 'TeachWorkMine',
@@ -46,7 +46,7 @@ export default {
     /** 查询作品列表 */
     getList() {
       this.loading = true;
-      listTeachWork(this.queryParams).then(response => {
+      listTeachWorkMine(this.queryParams).then(response => {
         this.works = response.data.list;
         this.total = response.data.total;
         this.loading = false;
