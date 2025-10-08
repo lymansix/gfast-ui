@@ -22,10 +22,10 @@
     var workFileUrl = urlParams('workFile') //SB3路径
     var workName = urlParams('workName') //作业名
     if (workName) workName = decodeURIComponent(workName)
-    var departId = urlParams('departId') //班级ID
+    var userInfo = getUserInfo();
+    var departId = urlParams('departId') || userInfo.deptId //班级ID
     var additionalId = urlParams('additionalId') //附加作业ID
     var scene = urlParams("scene") || 'create' //来源
-    var userInfo = getUserInfo();
     var qn_token = getQiniuToken();
     var userToken = getUserToken();
     var workStatus = 0
@@ -332,62 +332,120 @@
       if (!uploadParam.projectKey || !uploadParam.coverKey) {
         return
       }
-      $.ajax({
-        url: '/api/teach/teachWork/add',
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        beforeSend: function (request) {
-          request.setRequestHeader('authorization', 'Bearer ' + getUserToken())
-        },
-        data: JSON.stringify({
-          courseId: unitId,
-          workCover: uploadParam.coverKey,
-          workFile: uploadParam.projectKey,
-          workName: uploadParam.projectTitle,
-          id: workId,
-          workType: 2,
-          workStatus: workStatus,
-          departId: departId,
-          additionalId: additionalId,
-          workScene: scene,
-          hasCloudData: window.vm.runtime.hasCloudData() //是否包含云变量
-        }),
-        success: function (res) {
-          canShare = true
-          if (res.code == 0) {
-            //如果包含云变量
-            if (window.vm.runtime.hasCloudData()) {
-              workId = res.data
-              //更新cloudId
-              window.scratch.setCloudId(workId)
+      if (workId) {
+        $.ajax({
+          url: '/api/teach/teachWork/edit',
+          type: 'POST',
+          dataType: 'json',
+          contentType: 'application/json',
+          beforeSend: function (request) {
+            request.setRequestHeader('authorization', 'Bearer ' + getUserToken())
+          },
+          data: JSON.stringify({
+            courseId: unitId,
+            workCover: uploadParam.coverKey,
+            workFile: uploadParam.projectKey,
+            workName: uploadParam.projectTitle,
+            id: workId,
+            workType: 2,
+            workStatus: workStatus,
+            departId: departId,
+            additionalId: additionalId,
+            workScene: scene,
+            hasCloudData: window.vm.runtime.hasCloudData() //是否包含云变量
+          }),
+          success: function (res) {
+            canShare = true
+            if (res.code == 0) {
+              //如果包含云变量
+              if (window.vm.runtime.hasCloudData()) {
+                workId = res.data
+                //更新cloudId
+                window.scratch.setCloudId(workId)
+              }
+              $('#projectTitle').html(projectTitle)
+              var shareUrl =
+                window.location.protocol +
+                '//' +
+                window.location.hostname +
+                (window.location.port ? ':' + window.location.port : '') +
+                '/work-detail?id=' +
+                res.data
+              createCode('qrcode', shareUrl)
+              var img = document.createElement('img');
+              img.id = 'qrCodeIco';
+              img.src = '/logo.png';
+              qrcode.appendChild(img);
+              $('.scratch-filter').show()
+              $('.release-success').show()
+            } else {
+              $('.release-false').show()
             }
-            $('#projectTitle').html(projectTitle)
-            var shareUrl =
-              window.location.protocol +
-              '//' +
-              window.location.hostname +
-              (window.location.port ? ':' + window.location.port : '') +
-              '/work-detail?id=' +
-              res.data
-            createCode('qrcode', shareUrl)
-            var img = document.createElement('img');
-            img.id = 'qrCodeIco';
-            img.src = '/logo.png';
-            qrcode.appendChild(img);
-            $('.scratch-filter').show()
-            $('.release-success').show()
-          } else {
+          },
+          error: function () {
             $('.release-false').show()
+          },
+          complete: function () {
+            $('.uploading').hide()
           }
-        },
-        error: function () {
-          $('.release-false').show()
-        },
-        complete: function () {
-          $('.uploading').hide()
-        }
-      })
+        })
+      } else {
+        $.ajax({
+          url: '/api/teach/teachWork/add',
+          type: 'POST',
+          dataType: 'json',
+          contentType: 'application/json',
+          beforeSend: function (request) {
+            request.setRequestHeader('authorization', 'Bearer ' + getUserToken())
+          },
+          data: JSON.stringify({
+            courseId: unitId,
+            workCover: uploadParam.coverKey,
+            workFile: uploadParam.projectKey,
+            workName: uploadParam.projectTitle,
+            workType: 2,
+            workStatus: workStatus,
+            departId: departId,
+            additionalId: additionalId,
+            workScene: scene,
+            hasCloudData: window.vm.runtime.hasCloudData() //是否包含云变量
+          }),
+          success: function (res) {
+            canShare = true
+            if (res.code == 0) {
+              //如果包含云变量
+              if (window.vm.runtime.hasCloudData()) {
+                workId = res.data
+                //更新cloudId
+                window.scratch.setCloudId(workId)
+              }
+              $('#projectTitle').html(projectTitle)
+              var shareUrl =
+                window.location.protocol +
+                '//' +
+                window.location.hostname +
+                (window.location.port ? ':' + window.location.port : '') +
+                '/work-detail?id=' +
+                res.data
+              createCode('qrcode', shareUrl)
+              var img = document.createElement('img');
+              img.id = 'qrCodeIco';
+              img.src = '/logo.png';
+              qrcode.appendChild(img);
+              $('.scratch-filter').show()
+              $('.release-success').show()
+            } else {
+              $('.release-false').show()
+            }
+          },
+          error: function () {
+            $('.release-false').show()
+          },
+          complete: function () {
+            $('.uploading').hide()
+          }
+        })
+      }
     }
 
   </script>
