@@ -1,9 +1,10 @@
-import router from './router'
-import store from './store'
+import { getToken } from '@/utils/auth'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { getToken } from '@/utils/auth'
+import Vue from 'vue'
+import router from './router'
+import store from './store'
 
 NProgress.configure({ showSpinner: false })
 
@@ -22,9 +23,11 @@ router.beforeEach((to, from, next) => {
         store.dispatch('GetInfo').then(res => {
           // 拉取user_info
           const roles = res.data.roles
+          const expire = 7 * 24 * 60 * 60 * 1000
+          Vue.ls.set('User_Info', res.data.user, expire)
           store.dispatch('GenerateRoutes', { roles }).then(accessRoutes => {
-          // 测试 默认静态页面
-          // store.dispatch('permission/generateRoutes', { roles }).then(accessRoutes => {
+            // 测试 默认静态页面
+            // store.dispatch('permission/generateRoutes', { roles }).then(accessRoutes => {
             // 根据roles权限生成可访问的路由表
             router.addRoutes(accessRoutes) // 动态添加可访问路由表
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成

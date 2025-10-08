@@ -43,7 +43,6 @@ const user = {
           commit('SET_TOKEN', res.data.token)
           const expire = 7 * 24 * 60 * 60 * 1000
           Vue.ls.set('Access_Token', res.data.token, expire)
-          Vue.ls.set('User_Info', userInfo, expire)
           resolve()
         }).catch(error => {
           reject(error)
