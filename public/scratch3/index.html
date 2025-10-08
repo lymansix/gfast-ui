@@ -68,7 +68,7 @@
     window.scratchConfig = {
       session: {
         token: userToken,
-        username: userInfo.realname || userInfo.username || '',
+        username: userInfo.userNickname || userInfo.userName || '',
         //avatar: getQiniuUrl(userInfo.avatar) || './static/avatar.png',
       },
       backpack: {
@@ -335,7 +335,7 @@
       if (workId) {
         $.ajax({
           url: '/api/teach/teachWork/edit',
-          type: 'POST',
+          type: 'PUT',
           dataType: 'json',
           contentType: 'application/json',
           beforeSend: function (request) {
