@@ -23,7 +23,7 @@
     var workName = urlParams('workName') //作业名
     if (workName) workName = decodeURIComponent(workName)
     var userInfo = getUserInfo();
-    var departId = urlParams('departId') || userInfo.deptId //班级ID
+    var deptId = urlParams('deptId') || userInfo.deptId //班级ID
     var additionalId = urlParams('additionalId') //附加作业ID
     var scene = urlParams("scene") || 'create' //来源
     var qn_token = getQiniuToken();
@@ -349,7 +349,7 @@
             id: workId,
             workType: 2,
             workStatus: workStatus,
-            departId: departId,
+            deptId: deptId,
             additionalId: additionalId,
             workScene: scene,
             hasCloudData: window.vm.runtime.hasCloudData() //是否包含云变量
@@ -405,7 +405,7 @@
             workName: uploadParam.projectTitle,
             workType: 2,
             workStatus: workStatus,
-            departId: departId,
+            deptId: deptId,
             additionalId: additionalId,
             workScene: scene,
             hasCloudData: window.vm.runtime.hasCloudData() //是否包含云变量
