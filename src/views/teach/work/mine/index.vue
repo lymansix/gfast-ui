@@ -4,13 +4,11 @@
     <el-row :gutter="30">
       <el-col :span="10" v-for="(item, index) in works" :key="index" :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
         <el-card :body-style="{ padding: '0px' }" class="work-card" shadow="hover">
-          <!-- 封面图 -->
-          <img :src="item.workCoverUrl" referrerpolicy="origin" class="cover" @click="handleEdit(item)" />
-
-          <!-- 文字区 -->
-          <div class="card-body">
-            <h3 class="title">{{ item.workName }}</h3>
-            <el-tag v-for="tag in item.tags" :key="tag" size="mini" type="success" class="tag">{{ tag }}</el-tag>
+          <div class="img-wrap">
+            <!-- 封面图 -->
+            <img :src="item.workCoverUrl" referrerpolicy="origin" class="cover" @click="handleEdit(item)" />
+            <h3 class="img-title">{{ item.workName }}</h3>
+            <el-tag v-for="tag in item.tags" :key="tag" size="mini" type="success" class="corner-tag">{{ tag }}</el-tag>
           </div>
           <!-- 底部 3 个按钮 -->
           <div class="card-footer">
@@ -103,17 +101,59 @@ export default {
 }
 
 .card-body {
-  padding: 14px;
+  padding: 10px;
 }
 
-.title {
-  margin: 0 0 8px;
+/* 图片容器 - 相对定位基准 */
+.img-wrap {
+  position: relative;
+  line-height: 0;
+  /* 去掉 inline 空隙 */
+}
+
+/* 标题 - 满层居中 */
+.img-title {
+  position: absolute;
+  inset: 0;
+  /* 上右下左全 0，撑满 */
+  margin: 0;
+  display: flex;
+  /* 弹性布局 */
+  align-items: center;
+  /* 垂直居中 */
+  justify-content: center;
+  /* 水平居中 */
+  padding: 0 10px;
   font-size: 16px;
-  color: #303133;
+  color: #fff;
+  background: rgba(0, 0, 0, .45);
+  /* 半透明背景 */
+  backdrop-filter: blur(2px);
+  /* 毛玻璃（可选） */
+  border-radius: 0 0 4px 4px;
+  overflow: hidden;
+  text-align: center;
+  /* 文字居中（多行时） */
+  /* 单行省略号 */
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.tag {
-  margin-right: 6px;
+/* 角标 - 左上角 */
+.corner-tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  /* 盖住图片 */
+  border-radius: 4px;
+  padding: 2px 6px;
+  /* 再小一点 */
+  font-size: 12px;
+  background: rgba(103, 194, 58, .9);
+  /* 半透明 success 色 */
+  border: 0;
+  /* 去掉边框更干净 */
 }
 
 /* 底部 3 按钮等宽 */
