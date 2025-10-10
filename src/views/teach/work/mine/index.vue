@@ -156,17 +156,29 @@ export default {
   /* 去掉边框更干净 */
 }
 
-/* 底部 3 按钮等宽 */
+/* 底部按钮容器：无内边距、无圆角、无间隙 */
 .card-footer {
-  padding: 0 14px 14px;
+  padding: 0;
   display: flex;
-  gap: 6px;
-  /* 按钮间距 */
+  gap: 0;
+  /* 1. 去掉 gap */
 }
 
+/* 单个按钮：占满 1/3，去掉左右圆角，边框重叠处理 */
 .card-footer .el-button {
-  flex: 1;
-  /* 三等分 */
+  flex: 1 1 0;
+  /* 2. 三等分 */
   min-width: 0;
+  margin: 0;
+  /* 3. 覆盖 Element 默认 margin */
+  border-radius: 0;
+  /* 4. 无圆角 */
+  border-right-width: 0;
+  /* 5. 中间按钮去掉右侧边框，防止重叠加粗 */
+}
+
+.card-footer .el-button:last-child {
+  border-right-width: 1px;
+  /* 6. 最右侧按钮恢复右边框 */
 }
 </style>
