@@ -26,6 +26,7 @@
 import {
   listTeachWorkMine
 } from "@/api/teach/work";
+import { delTeachWork } from "../../../../api/teach/work";
 export default {
   name: 'TeachWorkMine',
   data() {
@@ -50,12 +51,18 @@ export default {
         this.loading = false;
       });
     },
-    openWork(item) {
-      // 这里可跳转到作品详情页
-      this.$message.success(`打开 ${item.workName}`)
-    },
     handleDelete(item) {
-      this.$message.info(`查看 ${item.workName}`)
+      const workId = item.id;
+      this.$confirm('是否确认删除"' + item.workName + '"作品?', "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(function () {
+        return delTeachWork(workId);
+      }).then(() => {
+        this.getList();
+        this.msgSuccess("删除成功");
+      }).catch(function () { });
     },
     handleEdit(item) {
       switch (item.workType) {
