@@ -13,7 +13,7 @@
     var workId = urlParams('workId')
     var workUrl = urlParams('workUrl')
     window.scratchConfig = {
-      cloudData:{
+      cloudData: {
         enable: true,
         id: workId, //云变量ID
         api: window.location.hostname + "/api/websocket/scratch/cloudData" //云变量API地址
@@ -28,31 +28,31 @@
         height: 360,
         showControl: true,
         showLoading: false,
-        fullscreenButton:{ //全屏按钮
+        fullscreenButton: { //全屏按钮
           show: true,
-          handleBeforeSetStageUnFull(){ //退出全屏前的操作
+          handleBeforeSetStageUnFull() { //退出全屏前的操作
             var event = new CustomEvent('scratchUnFullScreen');
             window.parent.document.dispatchEvent(event);
             return true
           },
-          handleBeforeSetStageFull(){ //全屏前的操作
+          handleBeforeSetStageFull() { //全屏前的操作
             var event = new CustomEvent('scratchFullScreen');
             window.parent.document.dispatchEvent(event);
-            setTimeout(()=>{
+            setTimeout(() => {
               window.scratch.setFullScreen(true)
-            },100)
+            }, 100)
             return false
           }
         },
-        startButton:{ //开始按钮
+        startButton: { //开始按钮
           show: true,
-          handleBeforeStart(){ //开始前的操作
+          handleBeforeStart() { //开始前的操作
             return true
           }
         },
-        stopButton:{ // 停止按钮
+        stopButton: { // 停止按钮
           show: true,
-          handleBeforeStop(){ //停止前的操作
+          handleBeforeStop() { //停止前的操作
             return true
           }
         }
@@ -61,12 +61,12 @@
         window.vm = vm
       },
       handleDefaultProjectLoaded: () => {
-        if(workUrl){
+        if (workUrl) {
           window.scratch.loadProject(workUrl, () => {
             window.scratch.setCloudId(workUrl)
             vm.runtime.start()
           })
-        }else if(workId){
+        } else if (workId) {
           getWorkInfo(workId, function (info) {
             window.scratch.loadProject(info.workFileKey_url, () => {
               window.scratch.setCloudId(workId)
@@ -84,7 +84,7 @@
   </div>
 </body>
 
-<script type="text/javascript" src="lib.min.js"></script>
+<script type="text/javascript" src="https://ycdn.5185168.xyz/lib.min.js"></script>
 <script type="text/javascript" src="chunks/player.js"></script>
 <script>
 
